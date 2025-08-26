@@ -1,0 +1,6 @@
+# Quick Start Guide
+
+1. **Step One:** Do this...
+2. **Step Two:** Then do that...
+
+This is a sample guide.

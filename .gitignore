@@ -1,0 +1,11 @@
+# Ignore the virtual environment folder
+venv/
+.venv/ # In case you use .venv instead of venv
+
+# Ignore the MkDocs output folder
+site/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
