@@ -329,6 +329,19 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Quick Start Guide
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -340,6 +353,76 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#documenting-the-magik-script-for-smallworld-gis-data-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documenting the Magik Script for Smallworld GIS Data Access
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documenting the Magik Script for Smallworld GIS Data Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#script-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Script Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Copy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Script Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -387,6 +470,65 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#documenting-the-magik-script-for-smallworld-gis-data-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documenting the Magik Script for Smallworld GIS Data Access
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documenting the Magik Script for Smallworld GIS Data Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#script-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Script Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-copy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Copy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Script Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -405,11 +547,107 @@
 
 
 <h1 id="quick-start-guide">Quick Start Guide</h1>
+<h2 id="documenting-the-magik-script-for-smallworld-gis-data-access">Documenting the Magik Script for Smallworld GIS Data Access</h2>
+<p>This document describes a Magik script that allows interaction with Smallworld GIS databases and datasets.</p>
+<h3 id="script-purpose">Script Purpose</h3>
+<p>The objective of this script is to initialize access to Smallworld GIS databases, select a specific database, and list the available collections (tables or feature classes) within that database, showing both their internal names and their external (description) names.</p>
+<h3 id="quick-copy">Quick Copy</h3>
+<p>For quick interaction with the Magik interpreter, you can copy and paste these code blocks directly.</p>
+<pre><code>dbs &lt;&lt; gis_program_manager.databases
+</code></pre>
+<pre><code>print(dbs)
+</code></pre>
+<pre><code>gis_db &lt;&lt; dbs[:electric]
+</code></pre>
+<pre><code>print(gis_db.collections)
+</code></pre>
+<pre><code>_for collection _over gis_db.collections.fast_elements()
+_loop
+    write(collection.name, %tab, collection.external_name)
+_endloop
+</code></pre>
+<h3 id="script-steps">Script Steps</h3>
+<p>Below, each command of the Magik script and its expected output are detailed:</p>
 <ol>
-<li><strong>Step One:</strong> Do this...</li>
-<li><strong>Step Two:</strong> Then do that...</li>
+<li>
+<p><strong>Initializing GIS Databases</strong></p>
+<p>This command assigns a reference to the GIS database manager to the global variable <code>dbs</code>. If <code>dbs</code> does not exist, the system will ask if you want to create it.</p>
+<p><pre><code>dbs &lt;&lt; gis_program_manager.databases</code></pre></p>
+<p><strong>Expected Output (if <code>dbs</code> does not exist):</strong></p>
+<p><code>Global dbs does not exist: create it? (Y)
+Definiendo global dbs</code></p>
+</li>
+<li>
+<p><strong>Listing Available Databases</strong></p>
+<p>To see a list of all configured and accessible GIS databases, copy and paste the following command:</p>
+<p><pre><code>print(dbs)</code></pre></p>
+<p><strong>Expected Output:</strong></p>
+<p><pre><code>hash_table:
+:gnss gnss_dataset(gnss)
+:cymdist gis_ds_view(Cymdist)
+:cis_interface gis_ds_view(Cis_interface)
+:addon gis_ds_view(Addon)
+:electric gis_ds_view(Electric)
+:design_config gis_ds_view(Design_config)
+:design_admin gis_ds_view(Design_admin)
+:task_management gis_ds_view(Task_management)
+:design_work gis_ds_view(Design_work)
+:thematics gis_ds_view(Thematics)
+:dxf gis_ds_view(Dxf)
+:cartografia gis_ds_view(Cartografia)
+:gis gis_ds_view(Gis)</code></pre></p>
+<ul>
+<li><strong>Explanation:</strong> The output shows a <code>hash_table</code> where each entry represents a database. For example, <code>:electric gis_ds_view(Electric)</code> indicates a database named <code>electric</code> with its associated GIS dataset view.</li>
+</ul>
+</li>
+<li>
+<p><strong>Selecting a Specific Database</strong></p>
+<p>This command selects the <code>electric</code> database from the available list in <code>dbs</code> and assigns it to the global variable <code>gis_db</code>. Again, if <code>gis_db</code> does not exist, its creation will be prompted.</p>
+<p><pre><code>gis_db &lt;&lt; dbs[:electric]</code></pre></p>
+<p><strong>Expected Output (if <code>gis_db</code> does not exist):</strong></p>
+<p><code>Global gis_db does not exist: create it? (Y)
+Definiendo global gis_db</code></p>
+</li>
+<li>
+<p><strong>Listing Collections (Datasets) in the Selected Database</strong></p>
+<p>To print all collections (which often correspond to "tables" or "feature classes" in a GIS) contained within the <code>gis_db</code> database (in this case, <code>electric</code>), use the following command:</p>
+<p><pre><code>print(gis_db.collections)</code></pre></p>
+<p><strong>Expected Output (fragment):</strong></p>
+<p><pre><code>hash_table:
+:eo_energy_storage a ds_collection(eo_energy_storage)
+:int!ed_handhole_et_structure_ a ds_collection(int!ed_handhole_et_structure_)
+:schematic_node_annotation a ds_collection(schematic_node_annotation)
+... (numerous collections)</code></pre></p>
+<ul>
+<li><strong>Explanation:</strong> Similar to the database listing, this output shows a <code>hash_table</code> where each entry is a data collection (<code>ds_collection</code>) within the <code>electric</code> database.</li>
+</ul>
+</li>
+<li>
+<p><strong>Iterating and Displaying Collection Names and their Descriptions</strong></p>
+<p>To list the internal name and external name (description) of each collection in the selected database, copy and paste the following loop:</p>
+<p><pre><code>_for collection _over gis_db.collections.fast_elements()
+_loop
+    write(collection.name, %tab, collection.external_name)
+_endloop</code></pre></p>
+<p><strong>Expected Output (fragment):</strong></p>
+<p><pre><code>eo_energy_storage   Almacenamiento de Energía
+int!ed_handhole_et_structure_   int!ed_handhole_et_structure_
+schematic_node_annotation   Schematic Node Annotation
+int!eo_energy_sto_eo_energy_sto2    int!eo_energy_sto_eo_energy_sto2
+ex_dd!version   ex_dd!version
+int!ed_pole_ed_pole_forei   int!ed_pole_ed_pole_forei
+ed_pole_foreign_attachment  Accesorios Exteriores
+data_correction_type    Data Correction Type
+swg_dsn_free_cancellation   Cancelación Libre
+eo_owner_type_name_catalog  Catálogo Nombre de Propiedad
+... (numerous collections with their descriptions)</code></pre></p>
+<ul>
+<li><strong>Explanation:</strong> This is the most informative part, as it provides a user-readable description of what each internal collection represents. For example, <code>eo_energy_storage</code> is described as "Almacenamiento de Energía". Many intermediate or relational collections (<code>int!...</code>) may not have a user-friendly external name.</li>
+</ul>
+</li>
 </ol>
-<p>This is a sample guide.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>This Magik script is a fundamental tool for exploring the structure of a Smallworld GIS database, allowing developers and administrators to quickly understand what databases and collections are available and what their purpose is.</p>
 
 
 
